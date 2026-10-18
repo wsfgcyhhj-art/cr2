@@ -18,6 +18,11 @@ class EditProduct(StatesGroup):
 
 @router_edit.callback_query(F.data.startswith('edit:'))
 async def edit_start(call: CallbackQuery, state: FSMContext):
+    if not await db.is_staff_db(call.from_user.id):
+        await call.message.answer('У вас нет доступа к этой команде!')
+        await call.answer()
+        return
+
     product_id = call.data.split(":")[1]
     # print(product_id)
     await state.update_data(product_id=product_id)

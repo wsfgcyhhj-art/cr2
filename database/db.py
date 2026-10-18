@@ -67,6 +67,16 @@ async def get_staff_list():
         return staff_list
 
 
+async def delete_product(product_id):
+    async with aiosqlite.connect(path_db) as conn:
+        await conn.execute(queries.delete_product.format(table='products_detail'), (product_id,))
+        await conn.execute(queries.delete_product.format(table='products'), (product_id,))
+        await conn.commit()
+
+
+delete_product_db = delete_product
+
+
 # =====================================================================================
 # import sqlite3
 # from database import queries

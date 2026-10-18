@@ -20,7 +20,7 @@ def product_actions(product_id):
     return InlineKeyboardMarkup(
         inline_keyboard=[
             [InlineKeyboardButton(text='✏️ Редактировать', callback_data=f'edit:{product_id}'),
-             InlineKeyboardButton(text="Удалить", callback_data=f'delete:{product_id}')]
+             InlineKeyboardButton(text="🗑 Удалить", callback_data=f'delete:{product_id}')]
         ]
     )
 
