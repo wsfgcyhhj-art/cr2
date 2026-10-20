@@ -4,6 +4,6 @@ from aiogram import Bot, Dispatcher
 BOT_TOKEN = config("BOT_TOKEN")
 
 bot = Bot(token=BOT_TOKEN)
-dp = Dispatcher() 
+dp = Dispatcher()
 
-path_db = "database/bot.db"
+path_db = "database/books.db"

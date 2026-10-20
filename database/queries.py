@@ -1,61 +1,28 @@
-# sql запросы 
-
-products_table = """
-    CREATE TABLE IF NOT EXISTS products (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        name TEXT NOT NULL, 
-        price INTEGER,
-        photo TEXT,
-        product_id INTEGER NOT NULL UNIQUE
-    )
+create_books_table = """
+CREATE TABLE IF NOT EXISTS books (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    book_id INTEGER UNIQUE NOT NULL,
+    title TEXT NOT NULL,
+    author TEXT NOT NULL
+)
 """
 
-
-insert_product = "INSERT INTO products (name, price, photo, product_id) VALUES (?, ?, ?, ?)"
-
-
-
-products_detail_table = """
-    CREATE TABLE IF NOT EXISTS products_detail (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        category TEXT,
-        color TEXT,
-        product_id INTEGER NOT NULL UNIQUE,
-        description TEXT
-    )
+create_books_detail_table = """
+CREATE TABLE IF NOT EXISTS books_detail (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    book_id INTEGER NOT NULL,
+    genre TEXT NOT NULL
+)
 """
 
-insert_product_detail = "INSERT INTO products_detail (category, color, product_id, description) VALUES (?, ?, ?, ?)" 
+insert_book = "INSERT INTO books (book_id, title, author) VALUES (?, ?, ?)"
 
-# products.product_id = products_detail.product_id 
+insert_book_detail = "INSERT INTO books_detail (book_id, genre) VALUES (?, ?)"
 
-select_product_id = "SELECT 1 FROM products WHERE product_id = ?"
+select_book_id = "SELECT 1 FROM books WHERE book_id = ?"
 
-
-get_products = """
-SELECT p.name, p.photo, p.price, p.product_id, pd.category, pd.color, pd.description
-FROM products p
-INNER JOIN products_detail pd on p.product_id = pd.product_id
+get_books = """
+SELECT b.book_id, b.title, b.author, bd.genre
+FROM books b
+INNER JOIN books_detail bd ON b.book_id = bd.book_id
 """
-
-
-update_product = 'UPDATE {table} SET {field} = ? WHERE product_id = ?'
-
-
-create_staff_table = """
-    CREATE TABLE IF NOT EXISTS staff (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        user_id INTEGER NOT NULL UNIQUE,
-        full_name TEXT,
-        added_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-    )
-"""
-
-check_staff = 'SELECT 1 FROM staff WHERE user_id = ?'
-
-insert_staff = "INSERT INTO staff (user_id, full_name) VALUES (?, ?)"
-
-get_staff_list = 'SELECT user_id, full_name FROM staff'
-
-
-delete_product = 'DELETE FROM {table} WHERE product_id = ?'
